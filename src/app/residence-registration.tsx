@@ -1,9 +1,4 @@
-/**
- * EcoPoint - Cadastro de Residência (Agente Público)
- * Permite ao agente cadastrar residências participantes do programa.
- * Usa expressões regulares para validação de CPF e endereço.
- * Máquina de estados: idle → validating → success | error
- */
+
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors, Spacing } from '@/constants/theme';
@@ -13,16 +8,16 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    useColorScheme,
-    View,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -77,7 +72,7 @@ export default function ResidenceRegistrationScreen() {
     setIsLoading(true);
 
     setTimeout(() => {
-      // Verifica se endereço já está cadastrado
+      
       const existing = db.getResidenceByAddress(address.trim());
       if (existing) {
         Alert.alert('Atenção', 'Este endereço já está cadastrado no programa.');
@@ -141,10 +136,10 @@ export default function ResidenceRegistrationScreen() {
               Todos os campos são validados automaticamente.
             </ThemedText>
 
-            {/* Formulário */}
+            
             <View style={[styles.card, { backgroundColor: colors.background }]}>
 
-              {/* Endereço */}
+            
               <View style={styles.inputGroup}>
                 <Text style={styles.inputLabel}>Endereço completo *</Text>
                 <View style={[styles.inputWrapper, errors.address ? styles.inputError : null]}>
@@ -165,7 +160,7 @@ export default function ResidenceRegistrationScreen() {
                 {errors.address && <Text style={styles.errorText}>{errors.address}</Text>}
               </View>
 
-              {/* Nome do morador */}
+             
               <View style={styles.inputGroup}>
                 <Text style={styles.inputLabel}>Nome do morador responsável *</Text>
                 <View style={[styles.inputWrapper, errors.residentName ? styles.inputError : null]}>
@@ -187,7 +182,7 @@ export default function ResidenceRegistrationScreen() {
                 {errors.residentName && <Text style={styles.errorText}>{errors.residentName}</Text>}
               </View>
 
-              {/* CPF */}
+             
               <View style={styles.inputGroup}>
                 <Text style={styles.inputLabel}>CPF *</Text>
                 <View style={[styles.inputWrapper, errors.cpf ? styles.inputError : null]}>
@@ -206,7 +201,7 @@ export default function ResidenceRegistrationScreen() {
                 {errors.cpf && <Text style={styles.errorText}>{errors.cpf}</Text>}
               </View>
 
-              {/* Seleção de rota */}
+             
               <View style={styles.inputGroup}>
                 <Text style={styles.inputLabel}>Rota de coleta *</Text>
                 <View style={styles.routeOptions}>
@@ -260,7 +255,7 @@ export default function ResidenceRegistrationScreen() {
               </Pressable>
             </View>
 
-            {/* Cadastros recentes */}
+            
             {recentRegistrations.length > 0 && (
               <View style={styles.recentSection}>
                 <Text style={styles.recentTitle}>Cadastros desta sessão:</Text>
@@ -273,7 +268,7 @@ export default function ResidenceRegistrationScreen() {
               </View>
             )}
 
-            {/* Estatísticas */}
+           
             <View style={styles.statsCard}>
               <Text style={styles.statsTitle}>Programa EcoPoint</Text>
               <View style={styles.statsRow}>

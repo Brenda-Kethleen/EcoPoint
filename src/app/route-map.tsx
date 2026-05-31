@@ -1,7 +1,4 @@
-/**
- * EcoPoint - Mapa da Rota (Motorista) — Maringá/PR
- * Mapa real com Leaflet. Status atualiza imediatamente na lista e no mapa.
- */
+
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
@@ -10,13 +7,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-    Modal,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -29,7 +26,7 @@ const STATUS_CONFIG: Record<ResidenceStatus, { color: string; icon: string; labe
   'Validado':            { color: '#5B9BD5', icon: 'shield-checkmark-outline', label: 'Validado'     },
 };
 
-// ─── HTML do mapa Leaflet ─────────────────────────────────────────────────────
+
 
 function buildRouteMapHtml(residences: Residence[]): string {
   const withCoords = residences.filter(r => r.latitude && r.longitude);
@@ -101,14 +98,14 @@ function buildRouteMapHtml(residences: Residence[]): string {
 </html>`;
 }
 
-// ─── Componente ───────────────────────────────────────────────────────────────
+
 
 export default function RouteMapScreen() {
   const router = useRouter();
   const { routeName: routeNameParam } = useLocalSearchParams();
   const routeName = Array.isArray(routeNameParam) ? routeNameParam[0] : routeNameParam;
 
-  // Estado local com cópia das residências — garante re-render imediato
+
   const [residences, setResidences] = useState<Residence[]>([]);
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
   const [mapHtml, setMapHtml] = useState('');
@@ -121,10 +118,10 @@ export default function RouteMapScreen() {
     confirmColor: string;
   }>({ visible: false, title: '', message: '', onConfirm: () => {}, confirmLabel: 'OK', confirmColor: '#4A7C59' });
 
-  // Carrega e sincroniza residências do db
+ 
   const loadResidences = useCallback(() => {
     if (!routeName) return;
-    // Cria cópia rasa para forçar novo array (React detecta mudança)
+   
     const fresh = db.getResidencesByRoute(routeName).map(r => ({ ...r }));
     setResidences(fresh);
     setMapHtml(buildRouteMapHtml(fresh));
@@ -134,16 +131,16 @@ export default function RouteMapScreen() {
     loadResidences();
   }, [loadResidences]);
 
-  // Atualiza status e recarrega imediatamente
+
   const handleStatusUpdate = useCallback(
     (residence: Residence, newStatus: 'Descarte Consciente' | 'Não participou') => {
       db.updateResidenceStatus(residence.address, newStatus);
-      loadResidences(); // re-lê do db e atualiza estado + mapa
+      loadResidences(); 
     },
     [loadResidences]
   );
 
-  // Estatísticas derivadas do estado local
+  
   const stats = {
     total:        residences.length,
     collected:    residences.filter(r => r.status === 'Descarte Consciente').length,
@@ -193,7 +190,7 @@ export default function RouteMapScreen() {
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
 
-        {/* Header */}
+       
         <View style={styles.header}>
           <Pressable onPress={() => router.back()} style={styles.backButton}>
             <Ionicons name="arrow-back-outline" size={24} color="#4A7C59" />
@@ -209,7 +206,7 @@ export default function RouteMapScreen() {
 
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
 
-          {/* Mapa Leaflet — re-renderiza quando mapHtml muda */}
+          
           {Platform.OS === 'web' ? (
             <View style={styles.mapContainer}>
               {mapHtml ? (
@@ -229,7 +226,7 @@ export default function RouteMapScreen() {
             </View>
           )}
 
-          {/* Progresso */}
+        
           <View style={styles.progressCard}>
             <View style={styles.progressHeader}>
               <Text style={styles.progressTitle}>Progresso da coleta</Text>
@@ -254,7 +251,7 @@ export default function RouteMapScreen() {
             </View>
           </View>
 
-          {/* Filtros */}
+          
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -280,7 +277,7 @@ export default function RouteMapScreen() {
             })}
           </ScrollView>
 
-          {/* Lista */}
+          
           <ThemedText style={styles.sectionTitle}>
             {filtered.length} residência{filtered.length !== 1 ? 's' : ''}
           </ThemedText>
@@ -293,7 +290,7 @@ export default function RouteMapScreen() {
             return (
               <View key={residence.id} style={[styles.card, { borderLeftWidth: 4, borderLeftColor: cfg.color }]}>
 
-                {/* Cabeçalho do card */}
+               
                 <View style={styles.cardHeader}>
                   <Ionicons name={cfg.icon as any} size={22} color={cfg.color} />
                   <View style={styles.cardInfo}>
@@ -307,7 +304,7 @@ export default function RouteMapScreen() {
                   </View>
                 </View>
 
-                {/* Botões de ação */}
+                
                 <View style={styles.actionsRow}>
                   <Pressable
                     onPress={() => handleStatusUpdate(residence, 'Descarte Consciente')}
@@ -362,7 +359,7 @@ export default function RouteMapScreen() {
             </View>
           )}
 
-          {/* Finalizar */}
+          
           <Pressable
             onPress={handleFinishRoute}
             style={({ pressed }) => [styles.finishButton, { opacity: pressed ? 0.8 : 1 }]}
@@ -376,7 +373,7 @@ export default function RouteMapScreen() {
         </ScrollView>
       </SafeAreaView>
 
-      {/* Modal de confirmação — substitui Alert.alert (não funciona na web) */}
+      
       <Modal
         visible={confirmModal.visible}
         transparent
@@ -412,7 +409,7 @@ export default function RouteMapScreen() {
   );
 }
 
-// ─── Estilos ──────────────────────────────────────────────────────────────────
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F8F9F3' },
@@ -514,14 +511,14 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   actionButtonText: { color: 'white', fontWeight: 'bold', fontSize: 13 },
-  // Botão Coletado — inativo (verde claro) / ativo (verde escuro + borda)
+ 
   btnCollected:     { backgroundColor: '#5CB85C' },
   btnCollectedActive: {
     backgroundColor: '#2D6A3F',
     borderWidth: 2,
     borderColor: '#1A4A2A',
   },
-  // Botão Não coletado — inativo (vermelho claro) / ativo (vermelho escuro + borda)
+  
   btnMissed:       { backgroundColor: '#E57373' },
   btnMissedActive: {
     backgroundColor: '#B71C1C',
@@ -542,7 +539,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.two,
   },
   finishButtonText: { color: 'white', fontSize: 17, fontWeight: 'bold' },
-  // Modal
+ 
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',

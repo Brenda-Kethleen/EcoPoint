@@ -1,8 +1,4 @@
-/**
- * EcoPoint - Painel do Morador
- * Exibe pontos acumulados, desconto na conta de água, histórico de coletas
- * e acesso ao classificador de resíduos com IA.
- */
+
 import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import db from '@/data/db';
@@ -10,15 +6,15 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// Usuário demo: Maria Silva
+
 const DEMO_USER_EMAIL = 'maria@email.com';
 
 export default function HomeUserScreen() {
@@ -43,7 +39,7 @@ export default function HomeUserScreen() {
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
-        {/* Header */}
+        
         <View style={styles.header}>
           <View>
             <Text style={styles.greeting}>Olá, {user?.name.split(' ')[0] ?? 'Morador'} 👋</Text>
@@ -56,7 +52,7 @@ export default function HomeUserScreen() {
 
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
 
-          {/* Card de desconto */}
+          
           <View style={styles.discountCard}>
             <View style={styles.discountCardLeft}>
               <Text style={styles.discountLabel}>Desconto na conta de água</Text>
@@ -72,7 +68,7 @@ export default function HomeUserScreen() {
             </View>
           </View>
 
-          {/* Estatísticas */}
+         
           <View style={styles.statsRow}>
             <View style={styles.statCard}>
               <Ionicons name="star" size={24} color="#F5A623" />
@@ -91,7 +87,7 @@ export default function HomeUserScreen() {
             </View>
           </View>
 
-          {/* Barra de progresso */}
+         
           <View style={styles.progressCard}>
             <View style={styles.progressHeader}>
               <Text style={styles.progressTitle}>Progresso para próximo desconto</Text>
@@ -105,7 +101,7 @@ export default function HomeUserScreen() {
             </Text>
           </View>
 
-          {/* Ações rápidas */}
+          
           <Text style={styles.sectionTitle}>Ações</Text>
           <View style={styles.actionsGrid}>
 
@@ -133,7 +129,7 @@ export default function HomeUserScreen() {
 
           </View>
 
-          {/* Última coleta */}
+          
           <Text style={styles.sectionTitle}>Última atividade</Text>
           <View style={styles.lastCollectionCard}>
             <Ionicons name="time-outline" size={20} color="#4A7C59" />
@@ -156,7 +152,7 @@ export default function HomeUserScreen() {
             </View>
           </View>
 
-          {/* Como funciona */}
+          
           <Text style={styles.sectionTitle}>Como funciona</Text>
           <View style={styles.howItWorksCard}>
             {[

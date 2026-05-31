@@ -1,8 +1,4 @@
-/**
- * EcoPoint - Tela de Login
- * Autenticação para moradores, motoristas, agentes e administradores.
- * Fluxo de estados: idle → validating → authenticated | error
- */
+
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors, Spacing } from '@/constants/theme';
@@ -12,16 +8,16 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    useColorScheme,
-    View,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -45,7 +41,7 @@ export default function LoginScreen() {
   };
 
   const handleLogin = () => {
-    // Validação com expressão regular
+    
     const emailValidation = validateEmail(email);
     if (!emailValidation.valid) {
       setEmailError(emailValidation.message);
@@ -58,13 +54,13 @@ export default function LoginScreen() {
 
     setLoginState('loading');
 
-    // Simula latência de rede
+    
     setTimeout(() => {
       const user = db.findUserByEmail(email);
 
       if (user && user.password === password) {
         setLoginState('idle');
-        // Redireciona conforme perfil (máquina de estados)
+        
         switch (user.role) {
           case 'driver':
             router.push('/route-selection');
@@ -97,7 +93,7 @@ export default function LoginScreen() {
             contentContainerStyle={styles.scrollContent}
             keyboardShouldPersistTaps="handled">
 
-            {/* Logo e título */}
+            
             <View style={styles.logoContainer}>
               <View style={styles.logoCircle}>
                 <Ionicons name="leaf" size={48} color="white" />
@@ -108,13 +104,13 @@ export default function LoginScreen() {
               </ThemedText>
             </View>
 
-            {/* Card de login */}
+           
             <View style={[styles.card, { backgroundColor: colors.background }]}>
               <ThemedText style={styles.cardTitle}>
                 Acesse sua conta
               </ThemedText>
 
-              {/* Campo email */}
+            
               <View style={styles.inputGroup}>
                 <Text style={styles.inputLabel}>Email</Text>
                 <View style={[
@@ -141,7 +137,7 @@ export default function LoginScreen() {
                 ) : null}
               </View>
 
-              {/* Campo senha */}
+              
               <View style={styles.inputGroup}>
                 <Text style={styles.inputLabel}>Senha</Text>
                 <View style={[
@@ -174,7 +170,7 @@ export default function LoginScreen() {
                 </View>
               </View>
 
-              {/* Mensagem de erro de login */}
+              
               {loginState === 'error' && (
                 <View style={styles.errorBanner}>
                   <Ionicons name="alert-circle-outline" size={16} color="#D9534F" />
@@ -182,7 +178,7 @@ export default function LoginScreen() {
                 </View>
               )}
 
-              {/* Botão entrar */}
+              
               <Pressable
                 onPress={handleLogin}
                 disabled={isLoading}
@@ -202,7 +198,7 @@ export default function LoginScreen() {
                 )}
               </Pressable>
 
-              {/* Link para cadastro */}
+              
               <Pressable
                 onPress={() => router.push('/cadastro')}
                 accessibilityLabel="Criar nova conta">
@@ -213,7 +209,7 @@ export default function LoginScreen() {
               </Pressable>
             </View>
 
-            {/* Dicas de acesso */}
+           
             <View style={styles.hintsContainer}>
               <Text style={styles.hintsTitle}>Acessos de demonstração:</Text>
               <Text style={styles.hintItem}>🏠 Morador: maria@email.com / morador123</Text>

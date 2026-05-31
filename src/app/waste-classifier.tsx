@@ -1,30 +1,23 @@
-/**
- * EcoPoint - Classificador de Resíduos com IA (Naive Bayes)
- *
- * Permite ao morador informar o tipo de material e nível de contaminação
- * para receber a classificação correta do resíduo e instruções de descarte.
- *
- * Algoritmo: Naive Bayes — Russell e Norvig (2013, p. 447)
- */
+
 import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import {
-    ClassificationResult,
-    classifyWasteDetailed,
-    CONTAMINATION_LABELS,
-    ContaminationLevel,
-    MATERIAL_LABELS,
-    MaterialType,
+  ClassificationResult,
+  classifyWasteDetailed,
+  CONTAMINATION_LABELS,
+  ContaminationLevel,
+  MATERIAL_LABELS,
+  MaterialType,
 } from '@/utils/naive-bayes';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -74,7 +67,7 @@ export default function WasteClassifierScreen() {
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
-        {/* Header */}
+        
         <View style={styles.header}>
           <Pressable onPress={() => router.back()} style={styles.backButton}>
             <Ionicons name="arrow-back-outline" size={24} color="#4A7C59" />
@@ -87,7 +80,7 @@ export default function WasteClassifierScreen() {
 
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
 
-          {/* Descrição */}
+        
           <View style={styles.descriptionCard}>
             <Ionicons name="information-circle-outline" size={20} color="#1976D2" />
             <Text style={styles.descriptionText}>
@@ -98,7 +91,7 @@ export default function WasteClassifierScreen() {
 
           {!classified ? (
             <>
-              {/* Seleção de material */}
+              
               <Text style={styles.sectionTitle}>Tipo de Material</Text>
               <View style={styles.optionsGrid}>
                 {MATERIALS.map((material) => (
@@ -127,7 +120,7 @@ export default function WasteClassifierScreen() {
                 ))}
               </View>
 
-              {/* Seleção de contaminação */}
+            
               <Text style={styles.sectionTitle}>Nível de Contaminação</Text>
               <View style={styles.contaminationOptions}>
                 {CONTAMINATIONS.map((level) => (
@@ -160,7 +153,7 @@ export default function WasteClassifierScreen() {
                 ))}
               </View>
 
-              {/* Botão classificar */}
+             
               <Pressable
                 onPress={handleClassify}
                 disabled={!canClassify}
@@ -177,7 +170,7 @@ export default function WasteClassifierScreen() {
             </>
           ) : (
             <>
-              {/* Resultado */}
+          
               {result && (
                 <View style={[styles.resultCard, { borderColor: result.color }]}>
                   <View style={[styles.resultHeader, { backgroundColor: result.color }]}>
@@ -190,7 +183,7 @@ export default function WasteClassifierScreen() {
                     </View>
                   </View>
 
-                  {/* Entrada selecionada */}
+                 
                   <View style={styles.resultInputSummary}>
                     <Text style={styles.resultInputLabel}>Material:</Text>
                     <Text style={styles.resultInputValue}>
@@ -204,19 +197,19 @@ export default function WasteClassifierScreen() {
                     </Text>
                   </View>
 
-                  {/* Instruções de descarte */}
+                
                   <View style={styles.instructionsBox}>
                     <Text style={styles.instructionsTitle}>Como descartar:</Text>
                     <Text style={styles.instructionsText}>{result.disposalInstructions}</Text>
                   </View>
 
-                  {/* Dica */}
+             
                   <View style={styles.tipBox}>
                     <Ionicons name="bulb-outline" size={18} color="#F5A623" />
                     <Text style={styles.tipText}>{result.tip}</Text>
                   </View>
 
-                  {/* Probabilidades detalhadas */}
+                 
                   {allProbs && (
                     <View style={styles.probsSection}>
                       <Text style={styles.probsTitle}>Probabilidades calculadas (Naive Bayes):</Text>
@@ -256,7 +249,7 @@ export default function WasteClassifierScreen() {
                 </View>
               )}
 
-              {/* Botão nova classificação */}
+             
               <Pressable
                 onPress={handleReset}
                 style={({ pressed }) => [styles.resetButton, { opacity: pressed ? 0.8 : 1 }]}

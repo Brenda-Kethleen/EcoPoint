@@ -1,7 +1,4 @@
-/**
- * EcoPoint - Mapa de Pontos de Coleta (Maringá/PR)
- * Mapa real com OpenStreetMap + Leaflet via iframe.
- */
+
 import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import db, { CollectionPoint } from '@/data/db';
@@ -9,12 +6,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import {
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -36,7 +33,6 @@ const WASTE_TYPE_ICONS: Record<string, string> = {
   'eletrônico': 'phone-portrait-outline',
 };
 
-// ─── Mapa Leaflet ─────────────────────────────────────────────────────────────
 
 function buildMapHtml(points: CollectionPoint[], selectedId: string | null): string {
   const markersJs = points.map((p) => {
@@ -56,7 +52,7 @@ function buildMapHtml(points: CollectionPoint[], selectedId: string | null): str
     `;
   }).join('\n');
 
-  // Centro de Maringá
+ 
   const centerLat = -23.4205;
   const centerLng = -51.9333;
 
@@ -82,7 +78,6 @@ function buildMapHtml(points: CollectionPoint[], selectedId: string | null): str
 </html>`;
 }
 
-// ─── Tela ─────────────────────────────────────────────────────────────────────
 
 export default function MapaScreen() {
   const router = useRouter();
@@ -122,7 +117,7 @@ export default function MapaScreen() {
 
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
 
-          {/* Mapa Leaflet */}
+         
           {Platform.OS === 'web' ? (
             <View style={styles.mapContainer}>
               <iframe
@@ -139,7 +134,7 @@ export default function MapaScreen() {
             </View>
           )}
 
-          {/* Filtros */}
+          
           <Text style={styles.sectionTitle}>Filtrar por tipo de resíduo</Text>
           <ScrollView
             horizontal
@@ -175,7 +170,7 @@ export default function MapaScreen() {
             ))}
           </ScrollView>
 
-          {/* Lista de ecopontos */}
+          
           <Text style={styles.sectionTitle}>
             {filteredPoints.length} ecoponto{filteredPoints.length !== 1 ? 's' : ''} encontrado{filteredPoints.length !== 1 ? 's' : ''}
           </Text>

@@ -1,34 +1,30 @@
-/**
- * EcoPoint - Tela de Cadastro de Morador
- * Permite que novos moradores se registrem no programa.
- * Usa expressões regulares para validação de todos os campos.
- */
+
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors, Spacing } from '@/constants/theme';
 import db from '@/data/db';
 import {
-    formatCPF,
-    validateAddress,
-    validateCPF,
-    validateEmail,
-    validateName,
-    validatePassword,
+  formatCPF,
+  validateAddress,
+  validateCPF,
+  validateEmail,
+  validateName,
+  validatePassword,
 } from '@/utils/validators';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    useColorScheme,
-    View,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -95,7 +91,7 @@ export default function RegisterScreen() {
     setIsLoading(true);
 
     setTimeout(() => {
-      // Verifica se email já existe
+      
       const existing = db.findUserByEmail(email);
       if (existing) {
         setErrors(e => ({ ...e, email: 'Este email já está cadastrado.' }));
@@ -103,7 +99,7 @@ export default function RegisterScreen() {
         return;
       }
 
-      // Cria usuário morador
+      
       const newUser = db.addUser({
         name: name.trim(),
         email: email.trim().toLowerCase(),
@@ -113,7 +109,7 @@ export default function RegisterScreen() {
         address: address.trim(),
       });
 
-      // Registra como participante do programa
+      
       db.addParticipant({
         address: address.trim(),
         residentName: name.trim(),
@@ -181,7 +177,7 @@ export default function RegisterScreen() {
             contentContainerStyle={styles.scrollContent}
             keyboardShouldPersistTaps="handled">
 
-            {/* Header */}
+            
             <View style={styles.header}>
               <Pressable onPress={() => router.back()} style={styles.backButton}>
                 <Ionicons name="arrow-back-outline" size={24} color="#4A7C59" />
@@ -199,7 +195,7 @@ export default function RegisterScreen() {
               pelo descarte correto de resíduos.
             </ThemedText>
 
-            {/* Formulário */}
+            
             <View style={[styles.card, { backgroundColor: colors.background }]}>
 
               {renderInput('Nome completo', name, (t) => {
@@ -288,7 +284,7 @@ export default function RegisterScreen() {
               </Pressable>
             </View>
 
-            {/* Info sobre o programa */}
+            
             <View style={styles.infoBox}>
               <Ionicons name="information-circle-outline" size={20} color="#4A7C59" />
               <Text style={styles.infoText}>

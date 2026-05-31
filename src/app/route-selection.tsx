@@ -1,8 +1,4 @@
-/**
- * EcoPoint - Seleção de Rota (Motorista)
- * Exibe o resumo do dia: rotas concluídas e pendentes,
- * com progresso de cada rota e status em tempo real.
- */
+
 import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import db, { Route } from '@/data/db';
@@ -12,7 +8,6 @@ import React, { useCallback, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// ─── Tipos ────────────────────────────────────────────────────────────────────
 
 interface RouteStats {
   route: Route;
@@ -20,20 +15,20 @@ interface RouteStats {
   collected: number;
   notCollected: number;
   pending: number;
-  progress: number;        // 0-100 — residências visitadas (coletado + não coletado)
-  completedToday: boolean; // finalizada pelo motorista hoje
+  progress: number;        
+  completedToday: boolean; 
 }
 
 type DayFilter = 'all' | 'pending' | 'done';
 
-// ─── Componente ───────────────────────────────────────────────────────────────
+
 
 export default function RouteSelectionScreen() {
   const router = useRouter();
   const [routeStats, setRouteStats] = useState<RouteStats[]>([]);
   const [filter, setFilter] = useState<DayFilter>('all');
 
-  // Recarrega ao voltar para esta tela (após finalizar uma rota)
+
   useFocusEffect(
     useCallback(() => {
       const stats: RouteStats[] = db.routes.map((route) => {
@@ -70,7 +65,7 @@ export default function RouteSelectionScreen() {
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
 
-        {/* Header */}
+        
         <View style={styles.header}>
           <View>
             <Text style={styles.greeting}>Olá, Motorista 🚛</Text>
@@ -83,7 +78,7 @@ export default function RouteSelectionScreen() {
 
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
 
-          {/* Resumo do dia */}
+        
           <View style={styles.dayCard}>
             <View style={styles.dayCardHeader}>
               <Ionicons name="calendar-outline" size={18} color="white" />
@@ -106,7 +101,7 @@ export default function RouteSelectionScreen() {
               </View>
             </View>
 
-            {/* Barra geral do dia */}
+            
             <View style={styles.dayProgressBar}>
               <View style={[
                 styles.dayProgressFill,
@@ -120,7 +115,7 @@ export default function RouteSelectionScreen() {
             </Text>
           </View>
 
-          {/* Filtros */}
+          
           <View style={styles.filterRow}>
             {([
               { key: 'all',     label: `Todas (${totalRoutes})` },
@@ -138,7 +133,7 @@ export default function RouteSelectionScreen() {
             ))}
           </View>
 
-          {/* Lista de rotas */}
+          
           {filtered.map((s) => (
             <RouteCard
               key={s.route.id}
@@ -165,7 +160,6 @@ export default function RouteSelectionScreen() {
   );
 }
 
-// ─── Card de rota ─────────────────────────────────────────────────────────────
 
 function RouteCard({ stats: s, onStart }: { stats: RouteStats; onStart: () => void }) {
   const isDone = s.completedToday;
@@ -173,7 +167,7 @@ function RouteCard({ stats: s, onStart }: { stats: RouteStats; onStart: () => vo
   return (
     <View style={[styles.card, isDone && styles.cardDone]}>
 
-      {/* Badge de status do dia */}
+      
       <View style={styles.cardTopRow}>
         <View style={[styles.routeIconContainer, isDone && { backgroundColor: '#D4EDDA' }]}>
           <Ionicons
@@ -198,7 +192,7 @@ function RouteCard({ stats: s, onStart }: { stats: RouteStats; onStart: () => vo
         </View>
       </View>
 
-      {/* Tags de bairros */}
+     
       <View style={styles.neighborhoodsRow}>
         {s.route.neighborhoods.map((n) => (
           <View key={n} style={styles.neighborhoodTag}>
@@ -207,7 +201,7 @@ function RouteCard({ stats: s, onStart }: { stats: RouteStats; onStart: () => vo
         ))}
       </View>
 
-      {/* Estatísticas */}
+     
       <View style={styles.statsRow}>
         <View style={styles.statItem}>
           <Ionicons name="home-outline" size={13} color="gray" />
@@ -229,7 +223,7 @@ function RouteCard({ stats: s, onStart }: { stats: RouteStats; onStart: () => vo
         )}
       </View>
 
-      {/* Barra de progresso */}
+     
       <View style={styles.progressContainer}>
         <View style={styles.progressHeader}>
           <Text style={styles.progressLabel}>
@@ -248,7 +242,7 @@ function RouteCard({ stats: s, onStart }: { stats: RouteStats; onStart: () => vo
         </View>
       </View>
 
-      {/* Botão */}
+     
       <Pressable
         onPress={onStart}
         style={({ pressed }) => [
@@ -272,7 +266,7 @@ function RouteCard({ stats: s, onStart }: { stats: RouteStats; onStart: () => vo
   );
 }
 
-// ─── Estilos ──────────────────────────────────────────────────────────────────
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F8F9F3' },
@@ -295,7 +289,7 @@ const styles = StyleSheet.create({
   },
   scrollView: { paddingHorizontal: Spacing.four },
 
-  // Resumo do dia
+  
   dayCard: {
     backgroundColor: '#2D5A3D',
     borderRadius: 16,
@@ -324,7 +318,7 @@ const styles = StyleSheet.create({
   dayProgressFill: { height: '100%', backgroundColor: '#A8E6CF', borderRadius: 3 },
   dayProgressLabel: { color: 'rgba(255,255,255,0.7)', fontSize: 12, textAlign: 'center' },
 
-  // Filtros
+
   filterRow: {
     flexDirection: 'row',
     gap: Spacing.two,
@@ -343,7 +337,7 @@ const styles = StyleSheet.create({
   filterChipText: { fontSize: 13, color: '#555' },
   filterChipTextActive: { color: 'white', fontWeight: 'bold' },
 
-  // Card de rota
+ 
   card: {
     backgroundColor: '#FFFFFF',
     borderRadius: Spacing.three,

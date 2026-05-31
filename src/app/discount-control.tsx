@@ -1,8 +1,4 @@
-/**
- * EcoPoint - Controle de Descontos (Administrador)
- * Painel para acompanhar participações e gerenciar descontos na conta de água.
- * Integrado ao sistema de saneamento para concessão de benefícios.
- */
+
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
@@ -11,14 +7,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Alert,
-    Modal,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Alert,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -109,7 +105,7 @@ export default function DiscountControlScreen() {
             </View>
           </View>
 
-          {/* Ordenação */}
+          
           <View style={styles.sortRow}>
             <Text style={styles.sortLabel}>Ordenar por:</Text>
             {(['discount', 'participations', 'points'] as SortKey[]).map((key) => {
@@ -131,7 +127,7 @@ export default function DiscountControlScreen() {
             })}
           </View>
 
-          {/* Lista de participantes */}
+          
           <ThemedText style={styles.sectionTitle}>Moradores Participantes</ThemedText>
 
           {participants.map((participant) => {
@@ -158,7 +154,7 @@ export default function DiscountControlScreen() {
                   </View>
                 </View>
 
-                {/* Barra de progresso */}
+                
                 <View style={styles.progressRow}>
                   <Text style={styles.progressLabel}>Taxa de participação</Text>
                   <Text style={styles.progressValue}>{rate}%</Text>
@@ -173,7 +169,7 @@ export default function DiscountControlScreen() {
                   ]} />
                 </View>
 
-                {/* Detalhes */}
+                
                 <View style={styles.participantDetails}>
                   <View style={styles.detailItem}>
                     <Ionicons name="checkmark-circle-outline" size={14} color="#4A7C59" />
@@ -203,7 +199,7 @@ export default function DiscountControlScreen() {
           <View style={{ height: Spacing.four }} />
         </ScrollView>
 
-        {/* Modal de edição de desconto */}
+        
         <Modal
           visible={modalVisible}
           transparent
@@ -449,7 +445,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: 'bold',
   },
-  // Modal
+  
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
