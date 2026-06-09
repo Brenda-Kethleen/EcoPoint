@@ -210,13 +210,7 @@ export default function LoginScreen() {
             </View>
 
            
-            <View style={styles.hintsContainer}>
-              <Text style={styles.hintsTitle}>Acessos de demonstração:</Text>
-              <Text style={styles.hintItem}>🏠 Morador: maria@email.com / morador123</Text>
-              <Text style={styles.hintItem}>🚛 Motorista: motorista@ecoleta.mga.br / senha123</Text>
-              <Text style={styles.hintItem}>⚙️ Admin: admin@ecoleta.mga.br / admin123</Text>
-              <Text style={styles.hintItem}>👤 Agente: agente@ecoleta.mga.br / agente123</Text>
-            </View>
+           
 
           </ScrollView>
         </KeyboardAvoidingView>
